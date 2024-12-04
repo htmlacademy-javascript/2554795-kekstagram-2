@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Aleksandr Zhikharev](https://up.htmlacademy.ru/javascript-individual/2/user/2554795).
-* Наставник: `Неизвестно`.
+* Наставник: `Артем Картавый`.
 
 ---
 
