@@ -1,3 +1,16 @@
+const MIN_VALUE = 1;
+const MAX_ID = 25;
+const MIN_COMMENT = 1;
+const MAX_COMMENT = 30;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_COMMENT_ID = 1;
+const MAX_COMMENT_ID = 1000;
+const MAX_LINES_IN_COMMENT = 2;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
+const PHOTOS_MAX = 25;
+
 const MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -7,6 +20,9 @@ const MESSAGES = ['Всё отлично!',
 
 const NAMES = ['Олег', 'Ольга', 'Александр', 'Сергей', 'Петр', 'Геннадий', 'Эдуард', 'Аглая '];
 
+const DESCRIPTION = 'Самое красивое фото';
+
+
 function getRandomInteger (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -15,59 +31,45 @@ function getRandomInteger (min, max) {
   return Math.floor(result);
 }
 
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
-      return null;
+function createId(min, max) {
+  let currentValue = min - 1;
+  return function addValue() {
+    if (currentValue <= max) {
+      currentValue++;
     }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
     return currentValue;
   };
 }
 
-function getCommentMessage () {
-  const howMuchComments = getRandomInteger(1,2);
-  if (howMuchComments === 1) {
+function getCommentMessage (maxLines) {
+  const commentCount = getRandomInteger(1,maxLines);
+  let commentsmessage = '';
+  for (let i = 1; i <= commentCount; i++) {
     const commentNum = getRandomInteger(0, MESSAGES.length - 1);
-    return MESSAGES[commentNum];
+    commentsmessage += MESSAGES[commentNum];
   }
-  const commentNum1 = getRandomInteger(0, MESSAGES.length - 1);
-  let commentNum2 = getRandomInteger(0, MESSAGES.length - 1);
-  while (commentNum1 === commentNum2) {
-    commentNum2 = getRandomInteger(0, MESSAGES.length - 1);
-  }
-  const commentMessage = MESSAGES[commentNum1] + MESSAGES[commentNum2];
-  return commentMessage;
+  return commentsmessage;
 }
 
-const uniqId = createRandomIdFromRangeGenerator(1,25);
-const uniqPhotoId = createRandomIdFromRangeGenerator(1,25);
-const uniqCommentId = createRandomIdFromRangeGenerator(1,10000);
+const getId = createId(MIN_VALUE,MAX_ID);
+const getPhotoId = createId(MIN_VALUE,MAX_ID);
+const getCommentId = createId(MIN_COMMENT_ID,MAX_COMMENT_ID);
 
 const getComment = () => ({
-  id : uniqCommentId(),
-  avatar : 'avatar-' + getRandomInteger(1,6) + '.svg',
-  message : getCommentMessage(),
+  id : getCommentId(),
+  avatar : `avatar${getRandomInteger(MIN_AVATAR,MAX_AVATAR)}.svg`,
+  message : getCommentMessage(MAX_LINES_IN_COMMENT),
   name : NAMES[getRandomInteger(0, NAMES.length - 1)]
 }
 );
 
-const getPhotos = () =>(
+const getPhoto = () =>(
   {
-    id : uniqId(),
-    url : 'photos/' + uniqPhotoId() + '.jpg',
-    description : 'Самое красивое фото',
-    likes : getRandomInteger(15,200),
-    comments: Array.from({length: getRandomInteger(0,30)}, getComment)
+    id : getId(),
+    url :  `photos/${getPhotoId()}.jpg`,
+    description : DESCRIPTION,
+    likes : getRandomInteger(MIN_LIKES,MAX_LIKES),
+    comments: Array.from({length: getRandomInteger(MIN_COMMENT,MAX_COMMENT)}, getComment)
   });
 
-const photos = Array.from({length: 25}, getPhotos);
-
-
+const photos = Array.from({length: PHOTOS_MAX}, getPhoto);
