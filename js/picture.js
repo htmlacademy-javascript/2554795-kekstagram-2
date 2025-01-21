@@ -5,8 +5,9 @@ function renderPhotos (photos) {
 
   photos.forEach(({ url, description, likes, comments }) => {
     const picture = pictureTemplate.cloneNode(true);
-    picture.querySelector('.picture__img').src = url;
-    picture.querySelector('.picture__img').alt = description;
+    const newPicture = picture.querySelector('.picture__img');
+    newPicture.src = url;
+    newPicture.alt = description;
     picture.querySelector('.picture__likes').textContent = likes;
     picture.querySelector('.picture__comments').textContent = comments.length;
     picturesFragment.append(picture);
