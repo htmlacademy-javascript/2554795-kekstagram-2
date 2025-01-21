@@ -13,6 +13,6 @@ function renderPhotos (photos) {
   });
 
   picturesContainer.append(picturesFragment);
-};
+}
 
 export {renderPhotos};
