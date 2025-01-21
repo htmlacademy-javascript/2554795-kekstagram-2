@@ -1,8 +1,6 @@
 function renderPhotos (photos) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
   const picturesContainer = document.querySelector('.pictures');
-
   const picturesFragment = document.createDocumentFragment();
 
   photos.forEach(({ url, description, likes, comments }) => {
