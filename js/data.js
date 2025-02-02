@@ -11,6 +11,7 @@ const MAX_COMMENT_ID = 1000;
 const MAX_LINES_IN_COMMENT = 2;
 const MIN_AVATAR = 1;
 const MAX_AVATAR = 6;
+const PHOTOS_MAX = 25;
 
 const MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -54,4 +55,7 @@ const getPhoto = () =>(
     comments: Array.from({length: getRandomInteger(MIN_COMMENT,MAX_COMMENT)}, getComment)
   });
 
-export {getPhoto};
+
+const photos = Array.from({ length: PHOTOS_MAX }, getPhoto);
+
+export {photos};
