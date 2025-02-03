@@ -42,6 +42,9 @@ function closePopup() {
   document.removeEventListener('keydown', onPopupKeydown);
 
 }
+function pictureOnClick(evt) {
+  openPopup(evt.target);
+}
 
 function fillPopupData(data) {
   const photoId = Number(data.dataset.id);
@@ -58,8 +61,8 @@ function fillPopupData(data) {
   addComments(photo);
 }
 
-function openPopup(evt) {
-  fillPopupData(evt.target);
+function openPopup(data) {
+  fillPopupData(data);
 
   picturePopUp.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -72,4 +75,4 @@ function openPopup(evt) {
 
 }
 
-export {openPopup};
+export {pictureOnClick};

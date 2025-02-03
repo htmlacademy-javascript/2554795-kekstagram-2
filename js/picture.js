@@ -1,4 +1,4 @@
-import { openPopup } from './picture-popup.js';
+import { pictureOnClick } from './picture-popup.js';
 
 function renderPhotos (photos) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -14,15 +14,16 @@ function renderPhotos (photos) {
     picture.querySelector('.picture__likes').textContent = likes;
     picture.querySelector('.picture__comments').textContent = comments.length;
     picturesFragment.append(picture);
+    picture.addEventListener('click', pictureOnClick);
   });
 
   picturesContainer.append(picturesFragment);
 
-  const pictures = document.querySelectorAll('.picture');
+  // const pictures = document.querySelectorAll('.picture');
 
-  pictures.forEach((picture) => {
-    picture.addEventListener('click', openPopup);
-  });
+  // pictures.forEach((picture) => {
+  //   picture.addEventListener('click', openPopup);
+  // });
 
 }
 
