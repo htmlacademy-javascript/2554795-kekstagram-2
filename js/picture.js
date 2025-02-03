@@ -1,4 +1,8 @@
-import { pictureOnClick } from './picture-popup.js';
+import { openPopup } from './picture-popup.js';
+
+function pictureOnClick (evt) {
+  openPopup(evt.target);
+}
 
 function renderPhotos (photos) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -18,12 +22,6 @@ function renderPhotos (photos) {
   });
 
   picturesContainer.append(picturesFragment);
-
-  // const pictures = document.querySelectorAll('.picture');
-
-  // pictures.forEach((picture) => {
-  //   picture.addEventListener('click', openPopup);
-  // });
 
 }
 

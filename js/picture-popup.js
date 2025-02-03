@@ -42,9 +42,7 @@ function closePopup() {
   document.removeEventListener('keydown', onPopupKeydown);
 
 }
-function pictureOnClick(evt) {
-  openPopup(evt.target);
-}
+
 
 function fillPopupData(data) {
   const photoId = Number(data.dataset.id);
@@ -75,4 +73,4 @@ function openPopup(data) {
 
 }
 
-export {pictureOnClick};
+export {openPopup};
