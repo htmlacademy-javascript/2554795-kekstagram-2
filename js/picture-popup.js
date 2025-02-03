@@ -43,8 +43,7 @@ function closePopup() {
 
 }
 
-function openPopup(data) {
-
+function fillPopupData(data) {
   const photoId = Number(data.dataset.id);
   const photo = photos.find((search) => search.id === photoId);
 
@@ -57,6 +56,10 @@ function openPopup(data) {
 
   clearComments();
   addComments(photo);
+}
+
+function openPopup(evt) {
+  fillPopupData(evt.target);
 
   picturePopUp.classList.remove('hidden');
   body.classList.add('modal-open');

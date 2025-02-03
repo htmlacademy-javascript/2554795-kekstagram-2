@@ -21,8 +21,7 @@ function renderPhotos (photos) {
   const pictures = document.querySelectorAll('.picture');
 
   pictures.forEach((picture) => {
-    const data = picture.firstElementChild;
-    picture.addEventListener('click', openPopup(data));
+    picture.addEventListener('click', openPopup);
   });
 
 }
