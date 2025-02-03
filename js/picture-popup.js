@@ -63,7 +63,6 @@ function openPopup(evt) {
 
   picturePopUp.classList.remove('hidden');
   body.classList.add('modal-open');
-
   commentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
 
