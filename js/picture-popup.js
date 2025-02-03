@@ -1,5 +1,3 @@
-import { photos } from './main.js';
-
 const closePopupButton = 'Escape';
 
 const body = document.querySelector('body');
@@ -19,8 +17,8 @@ function clearComments() {
   comments.innerHTML = '';
 }
 
-function addComments (photo) {
-  photo.comments.forEach((data) => {
+function addComments (allComments) {
+  allComments.forEach((data) => {
     const newComment = comment.cloneNode(true);
     const avatar = newComment.querySelector('.social__picture');
     avatar.src = data.avatar;
@@ -44,23 +42,21 @@ function closePopup() {
 }
 
 
-function fillPopupData(data) {
-  const photoId = Number(data.dataset.id);
-  const photo = photos.find((search) => search.id === photoId);
+function fillPopupData(url, desc, likes, allComments) {
 
-  bigPictureUrl.firstElementChild.src = photo.url;
-  pictureLikes.textContent = photo.likes;
-  description.textContent = photo.description;
+  bigPictureUrl.firstElementChild.src = url;
+  pictureLikes.textContent = likes;
+  description.textContent = desc;
 
-  shownComments.textContent = photo.comments.length;
-  totalComments.textContent = photo.comments.length;
+  shownComments.textContent = allComments.length;
+  totalComments.textContent = allComments.length;
 
   clearComments();
-  addComments(photo);
+  addComments(allComments);
 }
 
-function openPopup(data) {
-  fillPopupData(data);
+function openPopup(url, desc, likes, allComments) {
+  fillPopupData(url, desc, likes, allComments);
 
   picturePopUp.classList.remove('hidden');
   body.classList.add('modal-open');
