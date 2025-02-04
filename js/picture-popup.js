@@ -10,15 +10,40 @@ const totalComments = document.querySelector('.social__comment-total-count');
 const description = document.querySelector('.social__caption');
 const comments = document.querySelector('.social__comments');
 const comment = document.querySelector('.social__comment');
-const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
+
+const countCommentsToShow = 5;
+let currentComments = [];
+let startIndex = 0;
+
+
+function showCommentLoader() {
+  if (currentComments.length <= 5) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+    commentsLoader.addEventListener('click', addComments);
+  }
+}
 
 function clearComments() {
   comments.innerHTML = '';
 }
 
-function addComments (allComments) {
-  allComments.forEach((data) => {
+function addComments () {
+
+  const endIndex = Math.min(startIndex + countCommentsToShow, currentComments.length);
+  shownComments.textContent = endIndex;
+
+  const toShow = currentComments.slice(startIndex, endIndex);
+
+  startIndex += countCommentsToShow;
+
+  if (startIndex >= currentComments.length) {
+    commentsLoader.classList.add('hidden');
+  }
+
+  toShow.forEach((data) => {
     const newComment = comment.cloneNode(true);
     const avatar = newComment.querySelector('.social__picture');
     avatar.src = data.avatar;
@@ -26,7 +51,9 @@ function addComments (allComments) {
     newComment.querySelector('.social__text').textContent = data.message;
     comments.appendChild(newComment);
   });
+
 }
+
 const onPopupKeydown = (event) => {
   if (event.key === closePopupButton) {
     event.preventDefault();
@@ -38,9 +65,8 @@ function closePopup() {
   picturePopUp.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupKeydown);
-
+  commentsLoader.removeEventListener('click', addComments);
 }
-
 
 function fillPopupData(url, desc, likes, allComments) {
 
@@ -48,20 +74,22 @@ function fillPopupData(url, desc, likes, allComments) {
   pictureLikes.textContent = likes;
   description.textContent = desc;
 
-  shownComments.textContent = allComments.length;
   totalComments.textContent = allComments.length;
 
+  currentComments = allComments;
+  startIndex = 0;
   clearComments();
-  addComments(allComments);
+  addComments();
 }
+
 
 function openPopup(url, desc, likes, allComments) {
   fillPopupData(url, desc, likes, allComments);
 
   picturePopUp.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+
+  showCommentLoader();
 
   closeButtonPopUp.addEventListener('click', closePopup);
 

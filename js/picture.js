@@ -1,9 +1,5 @@
 import { openPopup } from './picture-popup.js';
 
-// function pictureOnClick (evt) {
-//   openPopup(evt.target);
-// }
-
 function renderPhotos (photos) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const picturesContainer = document.querySelector('.pictures');
