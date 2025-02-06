@@ -12,32 +12,24 @@ const comments = document.querySelector('.social__comments');
 const comment = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const countCommentsToShow = 5;
+
+const COUNT_COMMENTS_TO_SHOW = 5;
 let currentComments = [];
 let startIndex = 0;
 
 
-function showCommentLoader() {
-  if (currentComments.length <= 5) {
-    commentsLoader.classList.add('hidden');
-  } else {
-    commentsLoader.classList.remove('hidden');
-    commentsLoader.addEventListener('click', addComments);
-  }
-}
-
-function clearComments() {
+const clearComments = () => {
   comments.innerHTML = '';
-}
+};
 
-function addComments () {
+const addComments = () => {
 
-  const endIndex = Math.min(startIndex + countCommentsToShow, currentComments.length);
+  const endIndex = Math.min(startIndex + COUNT_COMMENTS_TO_SHOW, currentComments.length);
   shownComments.textContent = endIndex;
 
   const toShow = currentComments.slice(startIndex, endIndex);
 
-  startIndex += countCommentsToShow;
+  startIndex += COUNT_COMMENTS_TO_SHOW;
 
   if (startIndex >= currentComments.length) {
     commentsLoader.classList.add('hidden');
@@ -52,7 +44,16 @@ function addComments () {
     comments.appendChild(newComment);
   });
 
-}
+};
+
+const showCommentLoader = () => {
+  if (currentComments.length <= COUNT_COMMENTS_TO_SHOW) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+    commentsLoader.addEventListener('click', addComments);
+  }
+};
 
 const onPopupKeydown = (event) => {
   if (event.key === closePopupButton) {
@@ -61,14 +62,14 @@ const onPopupKeydown = (event) => {
   }
 };
 
-function closePopup() {
+function closePopup () {
   picturePopUp.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onPopupKeydown);
   commentsLoader.removeEventListener('click', addComments);
 }
 
-function fillPopupData(url, desc, likes, allComments) {
+const fillPopupData = (url, desc, likes, allComments) => {
 
   bigPictureUrl.firstElementChild.src = url;
   pictureLikes.textContent = likes;
@@ -80,10 +81,9 @@ function fillPopupData(url, desc, likes, allComments) {
   startIndex = 0;
   clearComments();
   addComments();
-}
+};
 
-
-function openPopup(url, desc, likes, allComments) {
+const openPopup = (url, desc, likes, allComments) => {
   fillPopupData(url, desc, likes, allComments);
 
   picturePopUp.classList.remove('hidden');
@@ -95,6 +95,6 @@ function openPopup(url, desc, likes, allComments) {
 
   document.addEventListener('keydown', onPopupKeydown);
 
-}
+};
 
 export {openPopup};
