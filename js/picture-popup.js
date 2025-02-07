@@ -1,3 +1,5 @@
+const COUNT_COMMENTS_TO_SHOW = 5;
+
 const closePopupButton = 'Escape';
 
 const body = document.querySelector('body');
@@ -13,7 +15,6 @@ const comment = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 
 
-const COUNT_COMMENTS_TO_SHOW = 5;
 let currentComments = [];
 let startIndex = 0;
 
